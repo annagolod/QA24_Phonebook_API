@@ -34,6 +34,7 @@ public class RegistrationTestsRA {
                 .assertThat().statusCode(200)
                 .extract()
                 .path("token");
+        System.out.println(token);
     }
 
     @Test
