@@ -17,8 +17,9 @@ public class RegistrationTestsOkhttp {
 
     @Test
     public void registrationSuccess() throws IOException {
+        int i = (int)(System.currentTimeMillis()/1000)%3600;
         AuthRequestDTO auth = AuthRequestDTO.builder()
-                .username("totam@gmail.com")
+                .username(i + "totam@gmail.com")
                 .password("Totam54321#")
                 .build();
         RequestBody body = RequestBody.create(gson.toJson(auth), JSON);
