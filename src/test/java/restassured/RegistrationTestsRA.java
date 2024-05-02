@@ -56,6 +56,24 @@ public class RegistrationTestsRA {
     }
 
     @Test
+    public void registrationWrongPassword(){
+
+        AuthRequestDTO auth = AuthRequestDTO.builder()
+                .username("tretam@gmail.com")
+                .password("hone54321")
+                .build();
+        given()
+                .body(auth)
+                .contentType(ContentType.JSON)
+                .when()
+                .post(endPoint)
+                .then()
+                .assertThat().statusCode(400)
+                .assertThat().body("message.password", containsString(" At least 8 characters; Must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number; Can contain special characters [@$#^&*!]"));
+
+    }
+
+    @Test
     public void registrationDuplicate(){
 
         AuthRequestDTO auth = AuthRequestDTO.builder()

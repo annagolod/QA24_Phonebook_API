@@ -76,4 +76,38 @@ public class LoginTestsRA {
                 .assertThat().body("path", equalTo("/v1/user/login/usernamepassword"));
     }
 
+    @Test
+    public void loginWrongPassword(){
+        AuthRequestDTO auth = AuthRequestDTO.builder()
+                .username("tretam0810@gmail.com")
+                .password("hone54321")
+                .build();
+        given()
+                .body(auth)
+                .contentType(ContentType.JSON)
+                .when()
+                .post(endPoint)
+                .then()
+                .assertThat().statusCode(401)
+                .assertThat().body("message", containsString("Login or Password incorrect"))
+                .assertThat().body("path", equalTo("/v1/user/login/usernamepassword"));
+    }
+
+    @Test
+    public void loginUnregisteredUser(){
+        AuthRequestDTO auth = AuthRequestDTO.builder()
+                .username("tret@gmail.com")
+                .password("Phone54321#")
+                .build();
+        given()
+                .body(auth)
+                .contentType(ContentType.JSON)
+                .when()
+                .post(endPoint)
+                .then()
+                .assertThat().statusCode(401)
+                .assertThat().body("message", containsString("Login or Password incorrect"))
+                .assertThat().body("error", equalTo("Unauthorized"));
+    }
+
 }
